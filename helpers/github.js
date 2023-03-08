@@ -7,6 +7,8 @@ let getReposByUsername = (username, cb) => {
 
   // The options object has been provided to help you out,
   // but you'll have to fill in the URL
+  console.log('getRepo was touched: ');
+
   let options = {
     url: `https://api.github.com/users/${username}/repos`,
     headers: {
@@ -15,26 +17,26 @@ let getReposByUsername = (username, cb) => {
     }
   };
 
-  // jquery get
-  request(options, function(err, res) {
-    body = JSON.parse(res.body);
-    if (err) {
-      console.log(err);
-    } else {
-      cb(body);
-    }
+
+  // request(options, function(err, res) {
+  //   body = JSON.parse(res.body);
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     cb(body);
+  //   }
+  // })
+
+  // axios get
+  axios.get(options.url, options.headers)
+  .then((res) => {
+
+    cb(JSON.parse(res.body));
   })
-
-  //axios get
-  // axios.get(options.url)
-  // .then((res) => {
-
-  //   cb(JSON.parse(res.body));
-  // })
-  // .catch((err) => {
-  //   cb(err);
-  // })
-  // .finally(() => {});
+  .catch((err) => {
+    cb(err);
+  })
+  .finally(() => {});
 }
 
 module.exports = getReposByUsername;

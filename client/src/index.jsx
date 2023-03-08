@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import axios from 'axios';
 
 const App = () => {
 
@@ -10,6 +11,23 @@ const App = () => {
 
   const search = (term) => {
     console.log(`${term} was searched`);
+    // invoke clientGet helper function, pass through term
+
+    axios.post('/repos', {
+      username: term
+    })    // get repos
+    .then((res) => {
+      console.log(res.data); // test response
+      return axios.get('/repos')
+    })
+    .then((res) => {
+      // update state
+      setRepos(res.data);
+      console.log(repos);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   return (

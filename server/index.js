@@ -18,12 +18,15 @@ app.post('/repos', function (req, res) {
 
   // ingest HTTP POST request from client
   // GET from GitHub API (see helpers/github.js)
-  getReposByUsername(req.body.username, (repos) => {
-    // invoke model (save) on array of repos from API
-    save(repos)
-    .then(() => res.status(201).send())
-    // respond to client (201)
-  })
+
+  console.log('req body ---------- ' , req.body)
+  res.status(201).send('thank you for your post');
+  // getReposByUsername(req.body.username, (repos) => {
+  //   // invoke model (save) on array of repos from API
+  //   save(repos)
+  //   .then(() => res.status(201).send('thank you for your post'))
+  //   // respond to client (201)
+  // })
 
 
 
