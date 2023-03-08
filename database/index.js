@@ -11,12 +11,13 @@ db.once('open', function() {
 
 let repoSchema = new mongoose.Schema({
   // TODO: your schema here!
-  "id": Number,
-  "name": String,
-  "full_name": String,
-  "html_url": String,
-  "description": String,
-  "url": String,
+  "id": {type: Number, unique: true},  // unique identifier
+  "name": String,  // repo name
+  "full_name": String,  // repo full name
+  "html_url": String, // repo page address
+  "description": String,  // what repo is about
+  "url": String, // api address
+  "stargazers_count": Number,
   "size": Number,
   "forks_count": Number,
   "open_issues_count": Number,
@@ -27,13 +28,16 @@ let repoSchema = new mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
+let save = (repos) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
 
   // connect to app.post call after API
   // create a new repo based on Repo model and API data
+
+  return Repo.create(repos);
 }
 
 module.exports.save = save;
+module.exports.Repo = Repo;
